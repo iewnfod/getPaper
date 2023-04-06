@@ -84,7 +84,7 @@ def get_file(file_name: str):
         log.add_log(f'FILE {f_path} has existed', 1)
         return
 
-    wget.download(url, out=f_path, bar=draw_bar)
+    wget.download(url, out=f_path)
     print()
     log.add_log(f'Downloaded FILE: {f_path}', 0)
     time.sleep(random.random())
