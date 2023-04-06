@@ -63,7 +63,8 @@ def get_types(subject:str, year:int, season:str):
         return None
 
 
-def draw_bar(current, total, width=100):
+def draw_bar(current, total, width=80):
+    width = 80
     percent = int(current / total * width)
     print('[' + '\033[92m🁢\033[0m'*percent + '🁢'*(width - percent) + ']', current, '/', total, end='\r')
 
