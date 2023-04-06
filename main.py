@@ -14,6 +14,25 @@ ssl._create_default_https_context = ssl._create_unverified_context
 if not os.path.exists('./files'):
     os.mkdir('files')
 
+headers = {
+    "Accept": "application/json, text/javascript, */*; q=0.01",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+    "Connection": "keep-alive",
+    "Content-Length": "33",
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "Host": "cie.fraft.cn",
+    "Origin": "https://cie.fraft.cn",
+    "Referer": "https://cie.fraft.cn/",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.62 X-Requested-With: XMLHttpRequest",
+    "sec-ch-ua": '"Microsoft Edge";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "macOS"
+}
+
 
 def get_types(subject:str, year:int, season:str):
     """
@@ -31,7 +50,7 @@ def get_types(subject:str, year:int, season:str):
         "year": year,
         "season": season
     }
-    req = requests.post(url, data=data)
+    req = requests.post(url, data=data, headers=headers)
     # print(req.text)
 
     return_data = json.loads(req.text)
