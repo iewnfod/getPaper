@@ -89,7 +89,22 @@ if __name__ == "__main__":
     for subject in SUBJECTS:
         for year in YEARS:
             for season in SEASONS:
-                files = get_types(subject, year, season)
+                try:
+                    files = get_types(subject, year, season)
+                except Exception as err:
+                    log.add_log(str(err), 2)
+                    continue
                 if files:
                     for name, status in files:
-                        get_file(name)
+                        try:
+                            get_file(name)
+                        except Exception as err:
+                            log.add_log(str(err), 2)
+                            while 1:
+                                try:
+                                    log.add_log(f'Retry {name}', 1)
+                                    time.sleep(10)
+                                    get_file(name)
+                                    break
+                                except:
+                                    pass
