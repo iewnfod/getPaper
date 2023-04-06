@@ -14,6 +14,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 if not os.path.exists('./files'):
     os.mkdir('files')
 
+
 def get_types(subject:str, year:int, season:str):
     """
     根据学科，年份，以及季节，获取可用的试卷
@@ -21,7 +22,7 @@ def get_types(subject:str, year:int, season:str):
     :param subject: 学科编号
     :param year: 年
     :param season: 季节 ( Jun / Nov / Mar / Gen )
-    :return:
+    :return: 返回所有文件
     """
 
     url = "https://cie.fraft.cn/obj/Fetch/renum"
