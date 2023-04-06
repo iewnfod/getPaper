@@ -100,11 +100,12 @@ if __name__ == "__main__":
                             get_file(name)
                         except Exception as err:
                             log.add_log(str(err), 2)
+                            wait_time = 10
                             while 1:
                                 try:
                                     log.add_log(f'Retry {name}', 1)
-                                    time.sleep(10)
+                                    time.sleep(wait_time)
                                     get_file(name)
                                     break
                                 except:
-                                    pass
+                                    wait_time += 10
