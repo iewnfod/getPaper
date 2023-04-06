@@ -101,7 +101,7 @@ def save(subject, year, season):
 
 def load():
     if not os.path.exists('.saves'):
-        return '', -1, ''
+        return SUBJECT_LISTS[0], -1, SEASONS[0]
     with open('.saves', 'r') as f:
         data = f.read().split(' ')
     return data[0], int(data[1]), data[2]
