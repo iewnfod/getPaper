@@ -52,8 +52,8 @@ def get_file(file_name:str):
     if not os.path.exists(fpath):
         os.makedirs(fpath)
 
-    wget.download(url, out=fpath+'/'+file_name)
-    log.add_log(f'Downloaded FILE: {fpath}/{file_name}', 0)
+    wget.download(url, out=os.path.join(fpath, file_name))
+    log.add_log(f'Downloaded FILE: {os.path.join(fpath, file_name)}', 0)
     time.sleep(random.random())
 
 
