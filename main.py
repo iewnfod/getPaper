@@ -7,7 +7,7 @@ from res import SUBJECTS
 import time, random
 import MuyunxiSupports
 
-log = MuyunxiSupports.log('', 'log')
+log = MuyunxiSupports.log('', 'Get Paper Log')
 
 ssl._create_default_https_context = ssl._create_unverified_context
 

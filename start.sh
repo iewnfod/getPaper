@@ -1,5 +1,15 @@
 cd `dirname $0`
 
-python3 -m pip install wget MuyunxiSupports || python -m pip install wget MuyunxiSupports
+if [ python3 ]; then
+    alias py='python3'
+elif [ python ]; then
+    alias py='python'
+else
+    echo "Please install Python3 to run this script correctly. "
+    open "python.org"
+    exit 0
+fi
 
-python3 main.py || python main.py
+# main
+py -m pip install wget MuyunxiSupports BeautifulSoup4
+py main.py
