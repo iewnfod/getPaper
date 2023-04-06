@@ -48,12 +48,17 @@ def get_file(file_name:str):
     segments = file_name.split('_')
     dir_name = SUBJECTS[segments[0]]  # 学科
     sub_dir_name = '20' + segments[1][1:]  # 年份
-    fpath = os.path.join("./files", dir_name, sub_dir_name)
-    if not os.path.exists(fpath):
-        os.makedirs(fpath)
+    dir_path = os.path.join("./files", dir_name, sub_dir_name)
+    f_path = os.path.join(dir_path, file_name)
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
 
-    wget.download(url, out=os.path.join(fpath, file_name))
-    log.add_log(f'Downloaded FILE: {os.path.join(fpath, file_name)}', 0)
+    if os.path.exists(f_path):
+        log.add_log(f'FILE {f_path} has existed', 1)
+        return
+
+    wget.download(url, out=f_path)
+    log.add_log(f'Downloaded FILE: {f_path}', 0)
     time.sleep(random.random())
 
 
