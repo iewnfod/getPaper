@@ -89,13 +89,12 @@ def get_file(file_name: str):
         return
 
     wget.download(url, out=f_path, bar=draw_bar)
-    print()
     log.add_log(f'Downloaded FILE: {f_path}', 0)
     time.sleep(random.random())
 
 SUBJECT_LISTS = list(SUBJECTS.keys())
 
-YEARS = list(range(2015, 2023+1))
+YEARS = list(range(2018, 2023+1))
 
 SEASONS = ['Gen', 'Jun', 'Mar', 'Nov']
 
