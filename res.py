@@ -12,6 +12,7 @@ while i < len(data):
         data.pop(i)
         continue
     data[i] = data[i].split(' - ')
+    data[i][1] = ' - '.join(data[i][1:])
     i += 1
 
 data.sort(key=lambda x:int(x[0]))
