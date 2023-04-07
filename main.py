@@ -64,6 +64,8 @@ def get_types(subject:str, year:int, season:str):
 
 
 def draw_bar(current, total, width=80):
+    if current == -1 or total == -1:
+        return
     msg = f'{current} / {total}'
     width -= len(msg) + 3
     width -= len(name) + 1
@@ -93,7 +95,7 @@ def get_file(file_name: str):
 
 SUBJECT_LISTS = list(SUBJECTS.keys())
 
-YEARS = list(range(2018, 2023+1))
+YEARS = list(range(2015, 2023+1))
 
 SEASONS = ['Gen', 'Jun', 'Mar', 'Nov']
 
@@ -119,18 +121,20 @@ def load():
 
 if __name__ == "__main__":
     last_subject, last_year, last_season = load()
-    first = True
+    first_subject = True
+    first_year = True
+    first_seasons = True
     for subject in SUBJECTS:
-        if SUBJECT_LISTS.index(last_subject) > SUBJECT_LISTS.index(subject) and first:
-            first = False
+        if SUBJECT_LISTS.index(last_subject) > SUBJECT_LISTS.index(subject) and first_subject:
+            first_subject = False
             continue
         for year in YEARS:
-            if last_year > year and first:
-                first = False
+            if last_year > year and first_year:
+                first_year = False
                 continue
             for season in SEASONS:
-                if SEASONS.index(last_season) > SEASONS.index(season) and first:
-                    first = False
+                if SEASONS.index(last_season) > SEASONS.index(season) and first_seasons:
+                    first_seasons = False
                     continue
                 try:
                     log.add_log(f'Finding index for {SUBJECTS[subject]} - {year} - {season}')
