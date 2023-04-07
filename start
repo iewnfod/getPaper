@@ -11,5 +11,5 @@ else
 fi
 
 # main
-py -m pip install wget MuyunxiSupports BeautifulSoup4
+py -m pip install wget MuyunxiSupports
 py main.py
