@@ -136,7 +136,7 @@ if __name__ == "__main__":
                     first_seasons = False
                     continue
                 try:
-                    log.add_log(f'Finding index for {SUBJECTS[subject]} - {year} - {season}')
+                    log.add_log(f'Finding existing files for {SUBJECTS[subject]} | {year} | {season}')
                     files = get_types(subject, year, season)
                 except:
                     while 1:

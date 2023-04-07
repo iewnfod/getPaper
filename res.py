@@ -18,6 +18,8 @@ while i < len(data):
 data.sort(key=lambda x:int(x[0]))
 
 for num, name in data:
+    if '/' in name:
+        name = name.replace('/', '-')
     SUBJECTS[num] = name
 
 for i in SUBJECTS:
