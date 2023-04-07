@@ -64,9 +64,10 @@ def get_types(subject:str, year:int, season:str):
 
 
 def draw_bar(current, total, width=80):
-    width = 80
+    msg = f'{current} / {total}'
+    width -= len(msg) + 3
     percent = int(current / total * width)
-    print('[' + '\033[92m🁢\033[0m'*percent + '🁢'*(width - percent) + ']', current, '/', total, end='\r')
+    print('[' + '\033[92m🁢\033[0m'*percent + '🁢'*(width - percent) + ']', msg, end='\r')
 
 
 def get_file(file_name: str):
@@ -84,7 +85,7 @@ def get_file(file_name: str):
         log.add_log(f'FILE {f_path} has existed', 1)
         return
 
-    wget.download(url, out=f_path)
+    wget.download(url, out=f_path, bar=draw_bar)
     print()
     log.add_log(f'Downloaded FILE: {f_path}', 0)
     time.sleep(random.random())
