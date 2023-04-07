@@ -66,8 +66,9 @@ def get_types(subject:str, year:int, season:str):
 def draw_bar(current, total, width=80):
     msg = f'{current} / {total}'
     width -= len(msg) + 3
+    width -= len(name) + 1
     percent = int(current / total * width)
-    print('[' + '\033[92m🁢\033[0m'*percent + '🁢'*(width - percent) + ']', msg, end='\r')
+    print(name, '[' + '\033[92m🁢\033[0m'*percent + '🁢'*(width - percent) + ']', msg, end='\r')
 
 
 def get_file(file_name: str):
@@ -82,7 +83,7 @@ def get_file(file_name: str):
         os.makedirs(dir_path)
 
     if os.path.exists(f_path):
-        log.add_log(f'FILE {f_path} has existed', 1)
+        # log.add_log(f'FILE {f_path} has existed', 1)
         return
 
     wget.download(url, out=f_path, bar=draw_bar)
