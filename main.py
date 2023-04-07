@@ -107,25 +107,42 @@ def load():
         return SUBJECT_LISTS[0], -1, SEASONS[0]
     with open('.saves', 'r') as f:
         data = f.read().split(' ')
-    return data[0], int(data[1]), data[2]
+    subject, year, season = data[0], int(data[1]), data[2]
+    if subject not in SUBJECT_LISTS:
+        subject = SUBJECT_LISTS[0]
+    if year not in YEARS:
+        year = -1
+    if season not in SEASONS:
+        season = SEASONS[0]
+    return subject, year, season
 
 
 if __name__ == "__main__":
     last_subject, last_year, last_season = load()
+    first = True
     for subject in SUBJECTS:
-        if SUBJECT_LISTS.index(last_subject) > SUBJECT_LISTS.index(subject):
+        if SUBJECT_LISTS.index(last_subject) > SUBJECT_LISTS.index(subject) and first:
+            first = False
             continue
         for year in YEARS:
-            if last_year > year:
+            if last_year > year and first:
+                first = False
                 continue
             for season in SEASONS:
-                if SEASONS.index(last_season) > SEASONS.index(season):
+                if SEASONS.index(last_season) > SEASONS.index(season) and first:
+                    first = False
                     continue
                 try:
+                    log.add_log(f'Finding index for {SUBJECTS[subject]} - {year} - {season}')
                     files = get_types(subject, year, season)
-                except Exception as err:
-                    log.add_log(str(err), 2)
-                    continue
+                except:
+                    while 1:
+                        try:
+                            files = get_types(subject, year, season)
+                            break
+                        except:
+                            pass
+
                 if files:
                     for name, status in files:
                         try:

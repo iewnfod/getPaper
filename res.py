@@ -1,15 +1,23 @@
-import bs4
+with open('data.txt', 'r') as f:
+    data = f.read().split('\n')
 
-with open("./subjects.htm", "r") as f:
-    soup = bs4.BeautifulSoup(f.read(), "html.parser")
-divs = soup.find_all("div")[1:]
+while '' in data:
+    data.remove('')
+
 SUBJECTS = {}
-for i in divs:
-    s = i.string
-    print(s)
-    k, v = s.split(" - ")
-    SUBJECTS.update({k:v})
 
+i = 0
+while i < len(data):
+    if data[i][0] == '#':
+        data.pop(i)
+        continue
+    data[i] = data[i].split(' - ')
+    i += 1
 
-if __name__ == "__main__":
-    print(SUBJECTS)
+data.sort(key=lambda x:int(x[0]))
+
+for num, name in data:
+    SUBJECTS[num] = name
+
+for i in SUBJECTS:
+    print(i, SUBJECTS[i])
