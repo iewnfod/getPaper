@@ -6,6 +6,7 @@ import os
 from res import SUBJECTS
 import time, random
 import MuyunxiSupports
+import time
 
 log = MuyunxiSupports.log('', 'Get Paper Log')
 
@@ -63,7 +64,18 @@ def get_types(subject:str, year:int, season:str):
         return None
 
 
+
+last_time = time.time()
+last_value = 0
+
 def draw_bar(current, total, width=80):
+    global last_time, last_value
+    current_time = time.time()
+    time_diff = current_time - last_time
+    value_diff = current - last_value
+    speed = str(value_diff / time_diff)
+    last_time = current_time
+    last_value = current
     if current == -1 or total == -1:
         return
     msg = f'{current} / {total}'
