@@ -67,25 +67,28 @@ def get_types(subject:str, year:int, season:str):
 
 last_time = time.time()
 last_value = 0
+min_width = float('inf')
 
 def draw_bar(current, total, width=80):
-    global last_time, last_value
+    global last_time, last_value, min_width
     current_time = time.time()
     time_diff = current_time - last_time
     value_diff = current - last_value
-    speed = str(value_diff / time_diff)
+    speed = str(int(value_diff / time_diff)) + ' B/s'
     last_time = current_time
     last_value = current
     if current == -1 or total == -1:
         return
-    msg = f'{current} / {total}'
-    width -= len(msg) + 3
+    width -= len(speed) + 3
     width -= len(name) + 1
-    percent = int(current / total * width)
-    print(name, '[' + '\033[92m🁢\033[0m'*percent + '🁢'*(width - percent) + ']', msg, end='\r')
+    min_width = min(width, min_width)
+    percent = int(current / total * min_width)
+    text = name + ' ' + '[' + '\033[92m🁢\033[0m'*percent + '🁢'*(min_width - percent) + ']' + ' ' + speed
+    print(text + ' ' * (width - len(text)), end='\r')
 
 
 def get_file(file_name: str):
+    global last_time, last_value, min_width
     url = 'https://cie.fraft.cn/obj/Fetch/redir/' + file_name
     # 创建文件夹
     segments = file_name.split('_')
@@ -101,6 +104,11 @@ def get_file(file_name: str):
         return
 
     wget.download(url, out=f_path, bar=draw_bar)
+    # 下载完成后，把事件清零
+    last_time = time.time()
+    last_value = 0
+    min_width = float('inf')
+
     log.add_log(f'Downloaded FILE: {f_path}', 0)
     time.sleep(random.random())
 
